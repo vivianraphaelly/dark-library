@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Livros - Dark Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">📚 Dark Library</div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="livros.html" class="active">Livros</a>
+      <a href="categorias.html">Categorias</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+    <div class="auth-bar">
+      <button id="btn-login" class="btn">Entrar</button>
+      <button id="btn-register" class="btn btn-outline">Cadastrar</button>
+      <div id="user-bar"><span id="user-name"></span><button id="btn-logout">Sair</button></div>
+    </div>
+  </header>
+
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <h2 id="modal-title">Entrar</h2>
+      <div id="field-name" style="display:none"><input type="text" id="input-name" placeholder="Seu nome" /></div>
+      <input type="email" id="input-email" placeholder="E-mail" />
+      <input type="password" id="input-password" placeholder="Senha" />
+      <button class="btn-full" id="modal-submit">Entrar</button>
+      <p class="modal-msg" id="modal-msg"></p>
+      <p class="modal-switch" id="modal-switch-text">Não tem conta? <a onclick="openModal('register')">Cadastre-se</a></p>
+    </div>
+  </div>
+
+  <div class="page-title">
+    <h1>Todos os Livros</h1>
+    <p>Encontre sua próxima leitura favorita</p>
+  </div>
+
+  <div class="filter-bar">
+    <input type="text" id="search-input" placeholder="🔍 Buscar livro ou autor..." oninput="filterBooks()">
+    <select id="filter-cat" onchange="filterBooks()">
+      <option value="">Todas as categorias</option>
+      <option value="Fantasia">Fantasia</option>
+      <option value="Romance">Romance</option>
+      <option value="Terror">Terror</option>
+      <option value="Ficção Científica">Ficção Científica</option>
+      <option value="Tecnologia">Tecnologia</option>
+      <option value="Clássicos">Clássicos</option>
+    </select>
+    <select id="filter-order" onchange="filterBooks()">
+      <option value="">Ordenar por</option>
+      <option value="az">A → Z</option>
+      <option value="za">Z → A</option>
+    </select>
+  </div>
+
+  <section class="books">
+    <div class="cards" id="books-grid">
+
+      <div class="card" data-cat="Fantasia" data-title="Harry Potter">
+        <div class="card-badge">⭐ Destaque</div>
+        <img src="imagens/harry-potter.png" alt="Harry Potter"
+             onerror="this.src='https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=400&auto=format&fit=crop'">
+        <div class="card-content">
+          <span class="card-category">Fantasia</span>
+          <h3>Harry Potter</h3>
+          <p>J.K. Rowling · Magia, aventura e amizade em Hogwarts.</p>
+          <a href="https://share.google/0F8s3uj7JwR8q8rBT" class="card-btn">Ver Livro</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Fantasia" data-title="Senhor dos Anéis">
+        <div class="card-badge">🏆 Clássico</div>
+        <img src="imagens/senhordosaneis.png" alt="Senhor dos Anéis"
+             onerror="this.src='https://images.unsplash.com/photo-1469395446868-fb6a048d5ca3?q=80&w=400&auto=format&fit=crop'">
+        <div class="card-content">
+          <span class="card-category">Fantasia</span>
+          <h3>Senhor dos Anéis</h3>
+          <p>J.R.R. Tolkien · Uma aventura épica pela Terra Média.</p>
+          <a href="https://clark.dirzon.com/Doc/Details/telegram:Box%20Trilogia%20O%20Senhor%20dos%20Aneis%20-%20J.R.R.%20Tolkien.epub" class="card-btn">Ver Livro</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Romance" data-title="Para Todos os Garotos que Já Amei">
+        <div class="card-badge">💕 Romance</div>
+        <img src="imagens/paratodosgaratosqjaamei.png" alt="Para Todos os Garotos"
+             onerror="this.src='https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=400&auto=format&fit=crop'">
+        <div class="card-content">
+          <span class="card-category">Romance</span>
+          <h3>Para Todos os Garotos que Já Amei</h3>
+          <p>Jenny Han · Uma comédia romântica adolescente icônica sobre o primeiro amor.</p>
+          <a href="https://share.google/dLacRpwVmmKvxHl38" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Tecnologia" data-title="Código Limpo">
+        <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?q=80&w=400&auto=format&fit=crop" alt="Código Limpo">
+        <div class="card-content">
+          <span class="card-category">Tecnologia</span>
+          <h3>Código Limpo</h3>
+          <p>Robert C. Martin · Aprenda boas práticas de programação.</p>
+          <a href="https://share.google/hVckt68bdcEN2PtEs" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Ficção Científica" data-title="1984">
+        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&auto=format&fit=crop" alt="1984">
+        <div class="card-content">
+          <span class="card-category">Ficção Científica</span>
+          <h3>1984</h3>
+          <p>George Orwell · Um clássico distópico sobre vigilância e controle.</p>
+          <a href="https://share.google/QPexUmgAXgx2jOgm5" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Terror" data-title="Drácula">
+        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=400&auto=format&fit=crop" alt="Drácula">
+        <div class="card-content">
+          <span class="card-category">Terror</span>
+          <h3>Drácula</h3>
+          <p>Bram Stoker · O clássico do terror gótico que assombra gerações.</p>
+          <a href="https://share.google/kOyZhg6W8RkEygxd6" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Clássicos" data-title="Dom Casmurro">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=400&auto=format&fit=crop" alt="Dom Casmurro">
+        <div class="card-content">
+          <span class="card-category">Clássicos</span>
+          <h3>Dom Casmurro</h3>
+          <p>Machado de Assis · O grande clássico do Realismo brasileiro.</p>
+          <a href="https://share.google/apfw8b29qoXyWzbJi" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Romance" data-title="Orgulho e Preconceito">
+        <img src="https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=400&auto=format&fit=crop" alt="Orgulho e Preconceito">
+        <div class="card-content">
+          <span class="card-category">Romance</span>
+          <h3>Orgulho e Preconceito</h3>
+          <p>Jane Austen · Uma história de amor e sociedade na Inglaterra do século XIX.</p>
+          <a href="https://share.google/KlVpxFHj0uYMiQH7B" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Ficção Científica" data-title="Duna">
+        <img src="https://images.unsplash.com/photo-1462332420958-a05d1e002413?q=80&w=400&auto=format&fit=crop" alt="Duna">
+        <div class="card-content">
+          <span class="card-category">Ficção Científica</span>
+          <h3>Duna</h3>
+          <p>Frank Herbert · Uma épica saga de ficção científica ambientada em um planeta desértico.</p>
+          <a href="https://share.google/YRu9qibw1PSqfUbt8" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Terror" data-title="It — A Coisa">
+        <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=400&auto=format&fit=crop" alt="It">
+        <div class="card-content">
+          <span class="card-category">Terror</span>
+          <h3>It — A Coisa</h3>
+          <p>Stephen King · O medo mais profundo da infância ganha vida em Derry.</p>
+          <a href="https://share.google/vDuoiHfHcEcpZcjNh" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Tecnologia" data-title="O Programador Pragmático">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=400&auto=format&fit=crop" alt="Programador Pragmático">
+        <div class="card-content">
+          <span class="card-category">Tecnologia</span>
+          <h3>O Programador Pragmático</h3>
+          <p>David Thomas · Dicas essenciais para desenvolvedores de todos os níveis.</p>
+          <a href="https://share.google/XKZiLrewOR1wOr9Vw" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+      <div class="card" data-cat="Fantasia" data-title="Narnia">
+        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=400&auto=format&fit=crop" alt="Narnia">
+        <div class="card-content">
+          <span class="card-category">Fantasia</span>
+          <h3>As Crônicas de Nárnia</h3>
+          <p>C.S. Lewis · Um mundo mágico além do guarda-roupa espera por você.</p>
+          <a href="https://share.google/KDomCqF1Ct6h1vVSw" class="card-btn">Ver Detalhes</a>
+        </div>
+      </div>
+
+    </div>
+    <p id="no-results" style="display:none;text-align:center;color:#888;padding:60px 0;font-size:18px">Nenhum livro encontrado. 😔</p>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div><div class="logo">📚 Dark Library</div><p style="color:#666;margin-top:10px;font-size:14px">Sua biblioteca virtual favorita.</p></div>
+      <div><h4>Navegação</h4><a href="index.html">Início</a><a href="livros.html">Livros</a><a href="categorias.html">Categorias</a><a href="contato.html">Contato</a></div>
+      <div><h4>Categorias</h4><a href="categorias.html#fantasia">Fantasia</a><a href="categorias.html#romance">Romance</a><a href="categorias.html#terror">Terror</a><a href="categorias.html#tecnologia">Tecnologia</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 Dark Library - Todos os direitos reservados</div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function filterBooks() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const cat = document.getElementById('filter-cat').value;
+      const order = document.getElementById('filter-order').value;
+      const cards = Array.from(document.querySelectorAll('.card'));
+
+      let visible = cards.filter(c => {
+        const title = c.dataset.title.toLowerCase();
+        const cardCat = c.dataset.cat;
+        return title.includes(search) && (!cat || cardCat === cat);
+      });
+
+      if (order === 'az') visible.sort((a, b) => a.dataset.title.localeCompare(b.dataset.title));
+      if (order === 'za') visible.sort((a, b) => b.dataset.title.localeCompare(a.dataset.title));
+
+      const grid = document.getElementById('books-grid');
+      cards.forEach(c => c.style.display = 'none');
+      visible.forEach(c => { c.style.display = ''; grid.appendChild(c); });
+
+      document.getElementById('no-results').style.display = visible.length === 0 ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
